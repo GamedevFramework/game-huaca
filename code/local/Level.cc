@@ -102,7 +102,9 @@ namespace huaca {
   , m_currentPortal(0)
   , m_isOnPortal(false)
   , m_groundLayer({ MapSize, MapSize })
+  , m_groundTileset(m_groundLayer.createTilesetId())
   , m_wallLayer({ MapSize, MapSize })
+  , m_wallTileset(m_wallLayer.createTilesetId())
   , m_finished(false)
   {
     // setup layers
@@ -110,18 +112,20 @@ namespace huaca {
     // 1806 = 7 * 256 + 6 * 2 + 2 * 1
     //  258 = 1 * 256 + 0 * 0 + 2 * 1
     m_groundLayer.setTileSize({ TileSize, TileSize });
-    m_groundLayer.setTilesetTileSize({ TilesetTileSize, TilesetTileSize });
-    m_groundLayer.setMargin({ 1, 1 });
-    m_groundLayer.setSpacing({ 2, 0 });
-    m_groundLayer.setTexture(gResourceManager().getTexture("img/ground.png"));
+    auto& groundTileset = m_groundLayer.getTileset(m_groundTileset);
+    groundTileset.setTileSize({ TilesetTileSize, TilesetTileSize });
+    groundTileset.setMargin({ 1, 1 });
+    groundTileset.setSpacing({ 2, 0 });
+    groundTileset.setTexture(gResourceManager().getTexture("img/ground.png"));
 
     // 1290 = 5 * 256 + 4 * 2 + 2 * 1
     //  256 = 1 * 256 + 0 * 0 + 2 * 0
     m_wallLayer.setTileSize({ TileSize, TileSize });
-    m_wallLayer.setTilesetTileSize({ TilesetTileSize, TilesetTileSize });
-    m_wallLayer.setMargin({ 1, 0 });
-    m_wallLayer.setSpacing({ 2, 0 });
-    m_wallLayer.setTexture(gResourceManager().getTexture("img/walls.png"));
+    auto& wallTileset = m_wallLayer.getTileset(m_wallTileset);
+    wallTileset.setTileSize({ TilesetTileSize, TilesetTileSize });
+    wallTileset.setMargin({ 1, 0 });
+    wallTileset.setSpacing({ 2, 0 });
+    wallTileset.setTexture(gResourceManager().getTexture("img/walls.png"));
 
     // load textures
 
@@ -732,11 +736,11 @@ namespace huaca {
 
         switch (m_world[x][y].tile) {
           case Tile::Wall:
-            m_wallLayer.setTile(coords, random.computeUniformInteger(0, WallTileCount - 1));
+            m_wallLayer.setTile(coords, m_wallTileset, random.computeUniformInteger(0, WallTileCount - 1));
             m_walls.push_back(gf::RectF::fromPositionSize(coords * TileSize, gf::Vector2f(TileSize, TileSize)));
             break;
           default:
-            m_groundLayer.setTile(coords, gf::clamp(random.computeUniformInteger(-10, GroundTileCount - 1), 0, GroundTileCount - 1));
+            m_groundLayer.setTile(coords, m_groundTileset, gf::clamp(random.computeUniformInteger(-10, GroundTileCount - 1), 0, GroundTileCount - 1));
             break;
         }
       }

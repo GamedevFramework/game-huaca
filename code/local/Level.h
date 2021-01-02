@@ -138,7 +138,9 @@ namespace huaca {
     // display
 
     gf::TileLayer m_groundLayer;
+    std::size_t m_groundTileset;
     gf::TileLayer m_wallLayer;
+    std::size_t m_wallTileset;
 
     // finished
 
