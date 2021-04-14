@@ -101,9 +101,9 @@ namespace huaca {
   , m_currentRune(0)
   , m_currentPortal(0)
   , m_isOnPortal(false)
-  , m_groundLayer({ MapSize, MapSize })
+  , m_groundLayer(gf::TileLayer::createOrthogonal({ MapSize, MapSize }))
   , m_groundTileset(m_groundLayer.createTilesetId())
-  , m_wallLayer({ MapSize, MapSize })
+  , m_wallLayer(gf::TileLayer::createOrthogonal({ MapSize, MapSize }))
   , m_wallTileset(m_wallLayer.createTilesetId())
   , m_finished(false)
   {
