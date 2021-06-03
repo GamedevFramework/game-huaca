@@ -101,9 +101,9 @@ namespace huaca {
   , m_currentRune(0)
   , m_currentPortal(0)
   , m_isOnPortal(false)
-  , m_groundLayer(gf::TileLayer::createOrthogonal({ MapSize, MapSize }))
+  , m_groundLayer(gf::TileLayer::createOrthogonal({ MapSize, MapSize }, { TilesetTileSize, TilesetTileSize }))
   , m_groundTileset(m_groundLayer.createTilesetId())
-  , m_wallLayer(gf::TileLayer::createOrthogonal({ MapSize, MapSize }))
+  , m_wallLayer(gf::TileLayer::createOrthogonal({ MapSize, MapSize }, { TilesetTileSize, TilesetTileSize }))
   , m_wallTileset(m_wallLayer.createTilesetId())
   , m_finished(false)
   {
@@ -111,21 +111,23 @@ namespace huaca {
 
     // 1806 = 7 * 256 + 6 * 2 + 2 * 1
     //  258 = 1 * 256 + 0 * 0 + 2 * 1
-    m_groundLayer.setTileSize({ TileSize, TileSize });
     auto& groundTileset = m_groundLayer.getTileset(m_groundTileset);
     groundTileset.setTileSize({ TilesetTileSize, TilesetTileSize });
     groundTileset.setMargin({ 1, 1 });
     groundTileset.setSpacing({ 2, 0 });
     groundTileset.setTexture(gResourceManager().getTexture("img/ground.png"));
 
+    m_groundLayer.setScale(1.0f / TilesetTileSize * TileSize);
+
     // 1290 = 5 * 256 + 4 * 2 + 2 * 1
     //  256 = 1 * 256 + 0 * 0 + 2 * 0
-    m_wallLayer.setTileSize({ TileSize, TileSize });
     auto& wallTileset = m_wallLayer.getTileset(m_wallTileset);
     wallTileset.setTileSize({ TilesetTileSize, TilesetTileSize });
     wallTileset.setMargin({ 1, 0 });
     wallTileset.setSpacing({ 2, 0 });
     wallTileset.setTexture(gResourceManager().getTexture("img/walls.png"));
+
+    m_wallLayer.setScale(1.0f / TilesetTileSize * TileSize);
 
     // load textures
 

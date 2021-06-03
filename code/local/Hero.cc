@@ -44,9 +44,7 @@ namespace huaca {
     gf::Texture& texture = gResourceManager().getTexture(path);
     texture.setSmooth();
 
-    for (int i = 0; i < 12; ++i) {
-      animation.addFrame(texture, gf::RectF::fromPositionSize({ (i % 4) / 4.0f, (i / 4) / 3.0f }, { 1.0f / 4.0f, 1.0f / 3.0f }), FrameTime);
-    }
+    animation.addTileset(texture, gf::vec(4, 3), FrameTime, 12);
   }
 
   Hero::Hero()
