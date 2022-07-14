@@ -25,7 +25,6 @@
 #include <gf/RenderTarget.h>
 #include <gf/Sprite.h>
 #include <gf/Shapes.h>
-#include <gf/Unused.h>
 
 #include "Messages.h"
 #include "Singletons.h"
@@ -246,9 +245,7 @@ namespace huaca {
     }
   }
 
-  gf::MessageStatus Level::onHeroPosition(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-
+  gf::MessageStatus Level::onHeroPosition([[maybe_unused]] gf::Id id, gf::Message *msg) {
     auto heroPosition = static_cast<HeroPositionMessage*>(msg);
 
     for (const gf::RectF& wall : m_walls) {
@@ -344,10 +341,7 @@ namespace huaca {
     return gf::MessageStatus::Keep;
   }
 
-  gf::MessageStatus Level::onResetLevel(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-    gf::unused(msg);
-
+  gf::MessageStatus Level::onResetLevel([[maybe_unused]] gf::Id id, [[maybe_unused]] gf::Message *msg) {
     for (auto& rune : m_runes) {
       rune.isPressed = false;
     }
@@ -384,9 +378,7 @@ namespace huaca {
   }
 
 
-  gf::MessageStatus Level::onPortalDropped(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-
+  gf::MessageStatus Level::onPortalDropped([[maybe_unused]] gf::Id id, gf::Message *msg) {
     if (m_currentPortal == 2) {
       return gf::MessageStatus::Keep;
     }

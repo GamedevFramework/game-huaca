@@ -21,7 +21,6 @@
 #include <gf/Shapes.h>
 #include <gf/Sprite.h>
 #include <gf/RenderTarget.h>
-#include <gf/Unused.h>
 
 #include "Singletons.h"
 #include "Messages.h"
@@ -143,26 +142,19 @@ namespace huaca {
   }
 
 
-  gf::MessageStatus Display::onKeyLooted(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-
+  gf::MessageStatus Display::onKeyLooted([[maybe_unused]] gf::Id id, gf::Message *msg) {
     auto keyLooted = static_cast<KeyLootedMessage*>(msg);
     m_keys[keyLooted->number].active = true;
     return gf::MessageStatus::Keep;
   }
 
-  gf::MessageStatus Display::onRunePressed(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-
+  gf::MessageStatus Display::onRunePressed([[maybe_unused]] gf::Id id, gf::Message *msg) {
     auto runePressed = static_cast<RunePressedMessage*>(msg);
     m_runes[runePressed->number].active = true;
     return gf::MessageStatus::Keep;
   }
 
-  gf::MessageStatus Display::onPortalDropped(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-    gf::unused(msg);
-
+  gf::MessageStatus Display::onPortalDropped([[maybe_unused]] gf::Id id, [[maybe_unused]] gf::Message *msg) {
     if (m_portals[0].active) {
       m_portals[0].active = false;
     } else if (m_portals[1].active) {
@@ -172,10 +164,7 @@ namespace huaca {
     return gf::MessageStatus::Keep;
   }
 
-  gf::MessageStatus Display::onSequenceFailed(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-    gf::unused(msg);
-
+  gf::MessageStatus Display::onSequenceFailed([[maybe_unused]] gf::Id id, [[maybe_unused]] gf::Message *msg) {
     for (auto& rune : m_runes) {
       rune.active = false;
     }
@@ -184,18 +173,12 @@ namespace huaca {
   }
 
 
-  gf::MessageStatus Display::onResetLevel(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-    gf::unused(msg);
-
+  gf::MessageStatus Display::onResetLevel([[maybe_unused]] gf::Id id, [[maybe_unused]] gf::Message *msg) {
     clear();
     return gf::MessageStatus::Keep;
   }
 
-  gf::MessageStatus Display::onNewLevel(gf::Id id, gf::Message *msg) {
-    gf::unused(id);
-    gf::unused(msg);
-
+  gf::MessageStatus Display::onNewLevel([[maybe_unused]] gf::Id id, [[maybe_unused]] gf::Message *msg) {
     clear();
     return gf::MessageStatus::Keep;
   }
